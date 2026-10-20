@@ -54,7 +54,24 @@ clean_scores_vector <- function(scores) {
 # names attached. Accumulating into a fresh vector with out <- c(out, value)
 # drops them, and the check compares with identical(), which notices.
 clean_scores_scalar <- function(scores) {
-    stop("TODO: implement clean_scores_scalar()")
+    out <- setNames(as.double(scores), names(scores))
+    CAP_SCORE <- 20
+    for ( i in seq_along(scores) ) {
+        curr_score <- scores[[i]]
+        if ( is.na(curr_score) ) {
+            out[[i]] <- 0
+        }
+
+        else {
+            curr_score <- curr_score * 2
+            if (CAP_SCORE < curr_score) {
+                curr_score <- CAP_SCORE
+            }
+
+            out[[i]] <- curr_score
+        }
+    }
+    return(out)
 }
 
 # build_roster(student_names, groups, scores)
