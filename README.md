@@ -6,7 +6,7 @@ Problem Set 2. The assignment manual defines the work and the submission rules.
 
 ## Creators
 
-Seth Caballero (Sesilyo)
+Seth Caballero (Sesilyo) \
 Lunele Moscoso (LuneleIven)
 
 ## Layout
