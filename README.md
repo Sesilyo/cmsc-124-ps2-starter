@@ -4,6 +4,11 @@
 This repository contains the R prediction corpus and the four functions for
 Problem Set 2. The assignment manual defines the work and the submission rules.
 
+## Creators
+
+Seth Caballero (Sesilyo)
+Lunele Moscoso (LuneleIven)
+
 ## Layout
 
 ```text
