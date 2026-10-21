@@ -46,6 +46,9 @@ Lists preserves integer and character types (doesn't coerce them), therefore, th
 Rule: Data Frame List-Under-The-Hood Model
 Data frame is actually a list of columns of equal length.
 
+^^^^^^^^^^^^^^ CORRECTION ^^^^^^^^^^^^^^^^^
+I forgot to further my explanation. When passed inside typeof(), the data.frame structure returns as a list. It's different from R's standard list because data.frame() enforces that all rows must be of the same length and that is why the value: includes id={1,2} because the rows are automatically assigned sequentially, type: list, length: 2 because there are two columns, and dim: c(2, 2) or 2 by 2.
+
 ## P10
 Rule: Column-Major Matrix Recycling
 Matrix builds a 2 row matrix with 1:6 and then the 2nd vector recycles it's values across the vector. Hence, value: matrix[2x3](11,22,13,24,15,26), type: integer because the matrix specifies it, length: 6, dim: c(2L,3L).
