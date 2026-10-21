@@ -159,11 +159,11 @@ build_roster <- function(student_names, groups, scores) {
 # compute one mean for each part and return a named vector with no dimensions.
 summarize_roster <- function(roster) {
     list(   # wraps the data inside an R list
-        rows            = nrow(roster)                 # get and sets the number of rows
-        missing_raw     = sum(is.na(roster$raw_score)) # get and counts all NA values
-        mean_adjusted   = mean(roster$adjusted_score, na.rm = TRUE)     # na.rm = TRUE removes NA values
+        rows            = nrow(roster),                 # get and sets the number of rows
+        missing_raw     = sum(is.na(roster$raw_score)), # get and counts all NA values
+        mean_adjusted   = mean(roster$adjusted_score, na.rm = TRUE),     # na.rm = TRUE removes NA values
                                                                         # gets the adjusted_scores and calculates the arithmetic means (and sets it)
-        passed          = roster$name[roster$passed]    # filters the students who passed (and sets it)
+        passed          = roster$name[roster$passed],    # filters the students who passed (and sets it)
         mean_by_group   = vapply(split(roster$adjusted_score, roster$group), mean, double(1))   # splits adjusted_score into separate pieces based on group (a factor level)
                                                                                                 # vapply() iterate over the split pieces while applying the mean function
                                                                                                 # double(1) specifies the elements should be a double with length 1 (looks like a whole number)
