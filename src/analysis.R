@@ -57,20 +57,28 @@ clean_scores_vector <- function(scores) {
 # names attached. Accumulating into a fresh vector with out <- c(out, value)
 # drops them, and the check compares with identical(), which notices.
 clean_scores_scalar <- function(scores) {
-    out <- setNames(as.double(scores), names(scores))
+    out <- setNames(as.double(scores), names(scores))   # [arg_1] convert input scores into a double vector (out)
+                                                        # [arg 2] preserves the original names that belongs to each double element
     CAP_SCORE <- 20
+
+    # go over input scores iteratively
     for ( i in seq_along(scores) ) {
         curr_score <- scores[[i]]
+
+        # checks if a score is NA
         if ( is.na(curr_score) ) {
-            out[[i]] <- 0
+            out[[i]] <- 0   # sets 0 for NA scores
         }
 
         else {
             curr_score <- curr_score * 2
+            
+            # if score is over the cap, set it with cap's value
             if (CAP_SCORE < curr_score) {
                 curr_score <- CAP_SCORE
             }
 
+            # update the score in out
             out[[i]] <- curr_score
         }
     }
@@ -148,11 +156,14 @@ build_roster <- function(student_names, groups, scores) {
 # split() can divide adjusted_score by every factor level. vapply() can then
 # compute one mean for each part and return a named vector with no dimensions.
 summarize_roster <- function(roster) {
-    list(
-        rows            = nrow(roster)
-        missing_raw     = sum(is.na(roster$raw_score))
-        mean_adjusted   = mean(roster$adjusted_score, na.rm = TRUE)
-        passed          = roster$name[roster$passed]
-        mean_by_group   = vapply(split(roster$adjusted_score, roster$group), mean, double(1))
-    )
+    list(   # wraps the data inside an R list
+        rows            = nrow(roster)                 # get and sets the number of rows
+        missing_raw     = sum(is.na(roster$raw_score)) # get and counts all NA values
+        mean_adjusted   = mean(roster$adjusted_score, na.rm = TRUE)     # na.rm = TRUE removes NA values
+                                                                        # gets the adjusted_scores and calculates the arithmetic means (and sets it)
+        passed          = roster$name[roster$passed]    # filters the students who passed (and sets it)
+        mean_by_group   = vapply(split(roster$adjusted_score, roster$group), mean, double(1))   # splits adjusted_score into separate pieces based on group (a factor level)
+                                                                                                # vapply() iterate over the split pieces while applying the mean function
+                                                                                                # double(1) specifies the elements should be a double with length 1 (looks like a whole number)
+    ) # end of list wrapper
 }
