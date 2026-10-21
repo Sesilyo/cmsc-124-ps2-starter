@@ -29,9 +29,9 @@
 # <-, replaces exactly the elements it marks and leaves the names attached. That
 # is the subassignment the constraint is asking for.
 clean_scores_vector <- function(scores) {
-    scores[is.na(scores)] <- 0
+    scores[is.na(scores)] <- 0 #traverses thru each element checks whether there's missing
     scores <- scores * 2
-    scores[scores > 20] <- 20
+    scores[scores > 20] <- 20 #sets ceiling to 20-- >20 replaced by 20 
     scores
 }
 
@@ -114,9 +114,11 @@ clean_scores_scalar <- function(scores) {
 # order. factor(groups, levels = unique(groups)) keeps first-appearance order.
 # unname() is what strips the names off the two score columns.
 build_roster <- function(student_names, groups, scores) {
+    #creates a table of a student's results 
     adjusted <- unname(clean_scores_vector(scores))
 
-    data.frame(
+    data.frame( 
+        #gets student info and turn it into table
         name = as.character(student_names),
         group = factor(groups, levels = unique(groups)),
         raw_score = unname(scores),
